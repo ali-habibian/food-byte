@@ -19,3 +19,4 @@ yarn-error.log
 /.idea
 /.vscode
 /resources/views/admin-template/
+/public/frontend/images/
