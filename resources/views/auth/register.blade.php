@@ -56,6 +56,8 @@
 
 @extends('frontend.home.layouts.master')
 
+@section('title', 'Register')
+
 @section('content')
     <!--=============================
         BREADCRUMB START

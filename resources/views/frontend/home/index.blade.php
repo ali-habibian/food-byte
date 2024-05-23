@@ -1,5 +1,7 @@
 @extends('frontend.home.layouts.master')
 
+@section('title', 'Home')
+
 @section('content')
     <!--=============================
     BANNER START
