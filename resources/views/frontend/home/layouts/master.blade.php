@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
 
     <link rel="stylesheet" href="{{asset('frontend/css/toastr.min.css')}}">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+{{--    <script src="{{ asset('vendor/flasher-toastr/toastr.min.js') }}"></script>--}}
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
@@ -117,8 +119,16 @@
 
 <!-- Toaster -->
 <script src="{{asset('frontend/js/toastr.min.js')}}"></script>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
 <script>
-    toastr.options.progressBar = true;
+    toastr.options = {
+        "closeButton": true,
+        "positionClass": "toast-top-center",
+        "progressBar": true,
+        "timeOut": 5000, // 5 seconds
+    };
     @if($errors->any())
         @foreach($errors->all() as $error)
             toastr.error('{{$error}}');

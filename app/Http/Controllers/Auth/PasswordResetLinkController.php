@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -36,9 +37,13 @@ class PasswordResetLinkController extends Controller
             $request->only('email')
         );
 
+//        toastr('Reset link has been sent to your email', 'success');
+//        toastr()->success('Reset link has been sent to your email');
+//        flash()->success('Reset link has been sent to your email.');
+        Toastr::success('Reset link has been sent to your email', 'Success');
         return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+            ? back()->with('status', __($status))
+            : back()->withInput($request->only('email'))
+                ->withErrors(['email' => __($status)]);
     }
 }
