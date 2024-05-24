@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>General Dashboard &mdash; Stisla</title>
+    <title>FoodByte | @yield('title')</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{asset('admin/assets/modules/bootstrap/css/bootstrap.min.css')}}">
@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{{asset('admin/assets/css/components.css')}}">
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+
+    <link rel="stylesheet" href="{{asset('frontend/css/toastr.min.css')}}">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -55,5 +58,24 @@
 <!-- Template JS File -->
 <script src="{{asset('admin/assets/js/scripts.js')}}"></script>
 <script src="{{asset('admin/assets/js/custom.js')}}"></script>
+
+<!-- Toaster -->
+<script src="{{asset('frontend/js/toastr.min.js')}}"></script>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "positionClass": "toast-top-center",
+        "progressBar": true,
+        "timeOut": 5000, // 5 seconds
+    };
+    @if($errors->any())
+    @foreach($errors->all() as $error)
+    toastr.error('{{$error}}');
+    @endforeach
+    @endif
+</script>
 </body>
 </html>
