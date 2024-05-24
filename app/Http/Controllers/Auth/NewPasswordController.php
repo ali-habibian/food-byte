@@ -54,10 +54,17 @@ class NewPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        Toastr::success('Password reset successfully.', 'Success');
+        Toastr::success(
+            'Password reset successfully.',
+            'Success',
+            [
+                'progressBar' => true,
+                "positionClass" => "toast-top-center"
+            ]
+        );
         return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withInput($request->only('email'))
+                ->withErrors(['email' => __($status)]);
     }
 }
