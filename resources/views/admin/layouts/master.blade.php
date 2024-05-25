@@ -59,6 +59,20 @@
 <script src="{{asset('admin/assets/js/scripts.js')}}"></script>
 <script src="{{asset('admin/assets/js/custom.js')}}"></script>
 
+<!-- JS Libraries -->
+<script src="{{asset('admin/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
+<script>
+    $.uploadPreview({
+        input_field: "#image-upload",   // Default: .image-upload
+        preview_box: "#image-preview",  // Default: .image-preview
+        label_field: "#image-label",    // Default: .image-label
+        label_default: "Choose File",   // Default: Choose File
+        label_selected: "Change File",  // Default: Change File
+        no_label: false,                // Default: false
+        success_callback: null          // Default: null
+    });
+</script>
+
 <!-- Toaster -->
 <script src="{{asset('frontend/js/toastr.min.js')}}"></script>
 <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
@@ -77,5 +91,8 @@
     @endforeach
     @endif
 </script>
+
+<!-- Page Dynamic JS File -->
+@stack('scripts')
 </body>
 </html>

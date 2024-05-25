@@ -17,9 +17,18 @@
                 <div class="card-body">
                     <p>Update your account's profile information and email address.</p>
 
-                    <form method="post" action="{{ route('admin.profile.update') }}">
+                    <form method="post" action="{{ route('admin.profile.update') }}" enctype="multipart/form-data">
                         @csrf
                         @method('put')
+
+                        <!-- Avatar -->
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            <div id="image-preview" class="image-preview">
+                                <label for="image-upload" id="image-label">Choose File</label>
+                                <input type="file" name="avatar" id="image-upload">
+                            </div>
+                        </div>
 
                         <!-- Name -->
                         <div class="form-group">
@@ -79,3 +88,15 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('.image-preview').css({
+                'background-image': 'url({{asset(auth()->user()->avatar)}})',
+                'background-size': 'cover',
+                'background-position': 'center'
+            })
+        })
+    </script>
+@endpush
