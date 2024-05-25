@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <p>Ensure your account is using a long, random password to stay secure.</p>
 
-                    <form method="post" action="{{ route('password.update') }}">
+                    <form method="post" action="{{ route('admin.profile.password.update') }}">
                         @csrf
                         @method('put')
 

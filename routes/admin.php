@@ -8,7 +8,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     /** Profile Routes **/
-    Route::get('profile', [AdminProfileController::class, 'index'])->name('profile');
-    Route::put('profile', [AdminProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [AdminProfileController::class, 'index'])->name('profile');
+        Route::put('/', [AdminProfileController::class, 'updateProfile'])->name('profile.update');
+        Route::put('password', [AdminProfileController::class, 'updatePassword'])->name('profile.password.update');
+    });
 });
 
