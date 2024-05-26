@@ -3,6 +3,27 @@
 @section('title', 'Dashboard')
 
 @section('content')
+    <!--=============================
+        BREADCRUMB START
+    ==============================-->
+    <section class="fp__breadcrumb" style="background: url({{asset('frontend/images/counter_bg.jpg')}});">
+        <div class="fp__breadcrumb_overlay">
+            <div class="container">
+                <div class="fp__breadcrumb_text">
+                    <h1>user dashboard</h1>
+                    <ul>
+                        <li><a href="{{route('home')}}">home</a></li>
+                        <li><a href="#">dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============================
+        BREADCRUMB END
+    ==============================-->
+
+
     <!--=========================
         DASHBOARD START
     ==========================-->
@@ -23,36 +44,44 @@
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                  aria-orientation="vertical">
                                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
-                                        data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
-                                        aria-selected="true"><span><i class="fas fa-user"></i></span> Parsonal Info</button>
+                                        data-bs-target="#v-pills-home" type="button" role="tab"
+                                        aria-controls="v-pills-home"
+                                        aria-selected="true"><span><i class="fas fa-user"></i></span> Parsonal Info
+                                </button>
 
                                 <button class="nav-link" id="v-pills-address-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-address" type="button" role="tab"
                                         aria-controls="v-pills-address" aria-selected="true"><span><i
-                                            class="fas fa-user"></i></span>address</button>
+                                                class="fas fa-user"></i></span>address
+                                </button>
 
                                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-profile" type="button" role="tab"
                                         aria-controls="v-pills-profile" aria-selected="false"><span><i
-                                            class="fas fa-bags-shopping"></i></span> Order</button>
+                                                class="fas fa-bags-shopping"></i></span> Order
+                                </button>
 
                                 <button class="nav-link" id="v-pills-messages-tab2" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-messages2" type="button" role="tab"
                                         aria-controls="v-pills-messages2" aria-selected="false"><span><i
-                                            class="far fa-heart"></i></span> wishlist</button>
+                                                class="far fa-heart"></i></span> wishlist
+                                </button>
 
                                 <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-messages" type="button" role="tab"
                                         aria-controls="v-pills-messages" aria-selected="false"><span><i
-                                            class="fas fa-star"></i></span> Reviews</button>
+                                                class="fas fa-star"></i></span> Reviews
+                                </button>
 
                                 <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-settings" type="button" role="tab"
                                         aria-controls="v-pills-settings" aria-selected="false"><span><i
-                                            class="fas fa-user-lock"></i></span> Change Password </button>
+                                                class="fas fa-user-lock"></i></span> Change Password
+                                </button>
 
                                 <button class="nav-link" type="button"><span> <i class="fas fa-sign-out-alt"></i>
-                                    </span> Logout</button>
+                                    </span> Logout
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -97,39 +126,29 @@
                                             </h4>
 
                                             <div class="personal_info_text">
-                                                <p><span>Name:</span> Hasib Ahmed</p>
-                                                <p><span>Email:</span> hasibahmed@gmail.com</p>
-                                                <p><span>Phone:</span> 023 434 54354</p>
-                                                <p><span>Address:</span> 7232 Broadway Suite 308, Jackson Heights,
-                                                    11372, NY, United States </p>
+                                                <p><span>Name:</span> {{auth()->user()->name}}</p>
+                                                <p><span>Email:</span> {{auth()->user()->email}}</p>
                                             </div>
 
                                             <div class="fp_dash_personal_info_edit comment_input p-0">
-                                                <form>
+                                                <form action="{{route('profile.update')}}" method="post">
+                                                    @csrf
+                                                    @method('PUT')
+
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>name</label>
-                                                                <input type="text" placeholder="Name">
+                                                            <div class="fp__comment_imput_single mt-3">
+                                                                <input type="text" placeholder="Name" name="name"
+                                                                       value="{{auth()->user()->name}}">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-6 col-lg-6">
+                                                        <div class="col-xl-12 col-lg-12 mt-3">
                                                             <div class="fp__comment_imput_single">
-                                                                <label>email</label>
-                                                                <input type="email" placeholder="Email">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-6 col-lg-6">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>phone</label>
-                                                                <input type="text" placeholder="Phone">
+                                                                <input type="email" placeholder="Email" name="email"
+                                                                       value="{{auth()->user()->email}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-12">
-                                                            <div class="fp__comment_imput_single">
-                                                                <label>address</label>
-                                                                <textarea rows="4" placeholder="Address"></textarea>
-                                                            </div>
                                                             <button type="submit" class="common_btn">submit</button>
                                                         </div>
                                                     </div>
@@ -315,7 +334,8 @@
                                                             <div class="fp__check_single_form check_area">
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
-                                                                           name="flexRadioDefault" id="flexRadioDefault1">
+                                                                           name="flexRadioDefault"
+                                                                           id="flexRadioDefault1">
                                                                     <label class="form-check-label"
                                                                            for="flexRadioDefault1">
                                                                         home
@@ -323,7 +343,8 @@
                                                                 </div>
                                                                 <div class="form-check">
                                                                     <input class="form-check-input" type="radio"
-                                                                           name="flexRadioDefault" id="flexRadioDefault2">
+                                                                           name="flexRadioDefault"
+                                                                           id="flexRadioDefault2">
                                                                     <label class="form-check-label"
                                                                            for="flexRadioDefault2">
                                                                         office
@@ -333,9 +354,11 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <button type="button"
-                                                                    class="common_btn cancel_new_address">cancel</button>
+                                                                    class="common_btn cancel_new_address">cancel
+                                                            </button>
                                                             <button type="submit" class="common_btn">save
-                                                                address</button>
+                                                                address
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -442,10 +465,12 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <button type="button"
-                                                                    class="common_btn cancel_edit_address">cancel</button>
+                                                                    class="common_btn cancel_edit_address">cancel
+                                                            </button>
 
                                                             <button type="submit" class="common_btn">update
-                                                                address</button>
+                                                                address
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -875,7 +900,9 @@
                                                                 <span>145</span>
                                                             </p>
                                                             <a class="title" href="menu_details.html">chicken Masala</a>
-                                                            <h5 class="price">$80.00 <del>90.00</del></h5>
+                                                            <h5 class="price">$80.00
+                                                                <del>90.00</del>
+                                                            </h5>
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
@@ -932,7 +959,9 @@
                                                                 <span>74</span>
                                                             </p>
                                                             <a class="title" href="menu_details.html">chicken Masala</a>
-                                                            <h5 class="price">$80.00 <del>90.00</del></h5>
+                                                            <h5 class="price">$80.00
+                                                                <del>90.00</del>
+                                                            </h5>
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
@@ -960,7 +989,9 @@
                                                                 <span>120</span>
                                                             </p>
                                                             <a class="title" href="menu_details.html">chicken Masala</a>
-                                                            <h5 class="price">$80.00 <del>90.00</del></h5>
+                                                            <h5 class="price">$80.00
+                                                                <del>90.00</del>
+                                                            </h5>
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
@@ -1145,7 +1176,8 @@
                                                                 <input type="password" placeholder="Confirm Password">
                                                             </div>
                                                             <button type="submit"
-                                                                    class="common_btn mt_20">submit</button>
+                                                                    class="common_btn mt_20">submit
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -1183,7 +1215,9 @@
                                 <i class="far fa-star"></i>
                                 <span>(201)</span>
                             </p>
-                            <h4 class="price">$320.00 <del>$350.00</del> </h4>
+                            <h4 class="price">$320.00
+                                <del>$350.00</del>
+                            </h4>
 
                             <div class="details_size">
                                 <h5>select size</h5>
