@@ -9,7 +9,12 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::middleware('auth:web')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::put('profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
+    Route::prefix('profile')->group(function () {
+        Route::put('/', [ProfileController::class, 'updateProfile'])->name('profile.update');
+        Route::put('/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+    });
+
 });
 
 require __DIR__ . '/auth.php';
