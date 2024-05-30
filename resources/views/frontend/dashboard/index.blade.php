@@ -81,9 +81,12 @@
                                             class="fas fa-user-lock"></i></span> Change Password
                                 </button>
 
-                                <button class="nav-link" type="button"><span> <i class="fas fa-sign-out-alt"></i>
-                                    </span> Logout
-                                </button>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button style="width: 100%;" class="nav-link" type="submit">
+                                        <span> <i class="fas fa-sign-out-alt"></i> </span> Logout
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
