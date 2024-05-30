@@ -13,6 +13,7 @@ Route::middleware('auth:web')->group(function () {
     Route::prefix('profile')->group(function () {
         Route::put('/', [ProfileController::class, 'updateProfile'])->name('profile.update');
         Route::put('/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+        Route::post('/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
     });
 
 });

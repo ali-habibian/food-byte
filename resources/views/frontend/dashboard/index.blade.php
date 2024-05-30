@@ -35,11 +35,13 @@
                         <div class="fp__dashboard_menu">
                             <div class="dasboard_header">
                                 <div class="dasboard_header_img">
-                                    <img src="images/comment_img_2.png" alt="user" class="img-fluid w-100">
+                                    <img src="{{asset(auth()->user()->avatar)}}" alt="user" class="img-fluid w-100">
                                     <label for="upload"><i class="far fa-camera"></i></label>
-                                    <input type="file" id="upload" hidden>
+                                    <form id="avatar_form">
+                                        <input type="file" id="upload" hidden name="avatar">
+                                    </form>
                                 </div>
-                                <h2>hasib ahmed</h2>
+                                <h2>{{auth()->user()->name}}</h2>
                             </div>
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                  aria-orientation="vertical">
@@ -52,31 +54,31 @@
                                 <button class="nav-link" id="v-pills-address-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-address" type="button" role="tab"
                                         aria-controls="v-pills-address" aria-selected="true"><span><i
-                                                class="fas fa-user"></i></span>address
+                                            class="fas fa-user"></i></span>address
                                 </button>
 
                                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-profile" type="button" role="tab"
                                         aria-controls="v-pills-profile" aria-selected="false"><span><i
-                                                class="fas fa-bags-shopping"></i></span> Order
+                                            class="fas fa-bags-shopping"></i></span> Order
                                 </button>
 
                                 <button class="nav-link" id="v-pills-messages-tab2" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-messages2" type="button" role="tab"
                                         aria-controls="v-pills-messages2" aria-selected="false"><span><i
-                                                class="far fa-heart"></i></span> wishlist
+                                            class="far fa-heart"></i></span> wishlist
                                 </button>
 
                                 <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-messages" type="button" role="tab"
                                         aria-controls="v-pills-messages" aria-selected="false"><span><i
-                                                class="fas fa-star"></i></span> Reviews
+                                            class="fas fa-star"></i></span> Reviews
                                 </button>
 
                                 <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                                         data-bs-target="#v-pills-settings" type="button" role="tab"
                                         aria-controls="v-pills-settings" aria-selected="false"><span><i
-                                                class="fas fa-user-lock"></i></span> Change Password
+                                            class="fas fa-user-lock"></i></span> Change Password
                                 </button>
 
                                 <button class="nav-link" type="button"><span> <i class="fas fa-sign-out-alt"></i>
@@ -117,47 +119,12 @@
                                             </div>
                                         </div>
 
-                                        <div class="fp_dash_personal_info">
-                                            <h4>Parsonal Information
-                                                <a class="dash_info_btn">
-                                                    <span class="edit">edit</span>
-                                                    <span class="cancel">cancel</span>
-                                                </a>
-                                            </h4>
-
-                                            <div class="personal_info_text">
-                                                <p><span>Name:</span> {{auth()->user()->name}}</p>
-                                                <p><span>Email:</span> {{auth()->user()->email}}</p>
-                                            </div>
-
-                                            <div class="fp_dash_personal_info_edit comment_input p-0">
-                                                <form action="{{route('profile.update')}}" method="post">
-                                                    @csrf
-                                                    @method('PUT')
-
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="fp__comment_imput_single mt-3">
-                                                                <input type="text" placeholder="Name" name="name"
-                                                                       value="{{auth()->user()->name}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-12 col-lg-12 mt-3">
-                                                            <div class="fp__comment_imput_single">
-                                                                <input type="email" placeholder="Email" name="email"
-                                                                       value="{{auth()->user()->email}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-12">
-                                                            <button type="submit" class="common_btn">submit</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                                        <!-- Personal info -->
+                                        @include('frontend.dashboard.personal-info')
                                     </div>
                                 </div>
 
+                                <!-- Address -->
                                 <div class="tab-pane fade" id="v-pills-address" role="tabpanel"
                                      aria-labelledby="v-pills-address-tab">
                                     <div class="fp_dashboard_body address_body">
@@ -479,6 +446,7 @@
                                     </div>
                                 </div>
 
+                                <!-- Order -->
                                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                                      aria-labelledby="v-pills-profile-tab">
                                     <div class="fp_dashboard_body">
@@ -847,6 +815,7 @@
                                     </div>
                                 </div>
 
+                                <!-- Whitelist -->
                                 <div class="tab-pane fade " id="v-pills-messages2" role="tabpanel"
                                      aria-labelledby="v-pills-messages-tab2">
                                     <div class="fp_dashboard_body">
@@ -876,7 +845,8 @@
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
-                                                                            class="fas fa-shopping-basket"></i></a></li>
+                                                                            class="fas fa-shopping-basket"></i></a>
+                                                                </li>
                                                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                                                 <li><a href="#"><i class="far fa-eye"></i></a></li>
                                                             </ul>
@@ -906,7 +876,8 @@
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
-                                                                            class="fas fa-shopping-basket"></i></a></li>
+                                                                            class="fas fa-shopping-basket"></i></a>
+                                                                </li>
                                                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                                                 <li><a href="#"><i class="far fa-eye"></i></a></li>
                                                             </ul>
@@ -935,7 +906,8 @@
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
-                                                                            class="fas fa-shopping-basket"></i></a></li>
+                                                                            class="fas fa-shopping-basket"></i></a>
+                                                                </li>
                                                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                                                 <li><a href="#"><i class="far fa-eye"></i></a></li>
                                                             </ul>
@@ -965,7 +937,8 @@
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
-                                                                            class="fas fa-shopping-basket"></i></a></li>
+                                                                            class="fas fa-shopping-basket"></i></a>
+                                                                </li>
                                                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                                                 <li><a href="#"><i class="far fa-eye"></i></a></li>
                                                             </ul>
@@ -995,7 +968,8 @@
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
-                                                                            class="fas fa-shopping-basket"></i></a></li>
+                                                                            class="fas fa-shopping-basket"></i></a>
+                                                                </li>
                                                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                                                 <li><a href="#"><i class="far fa-eye"></i></a></li>
                                                             </ul>
@@ -1024,7 +998,8 @@
                                                             <ul class="d-flex flex-wrap justify-content-center">
                                                                 <li><a href="#" data-bs-toggle="modal"
                                                                        data-bs-target="#cartModal"><i
-                                                                            class="fas fa-shopping-basket"></i></a></li>
+                                                                            class="fas fa-shopping-basket"></i></a>
+                                                                </li>
                                                                 <li><a href="#"><i class="fal fa-heart"></i></a></li>
                                                                 <li><a href="#"><i class="far fa-eye"></i></a></li>
                                                             </ul>
@@ -1062,6 +1037,7 @@
                                     </div>
                                 </div>
 
+                                <!-- Review -->
                                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                                      aria-labelledby="v-pills-messages-tab">
                                     <div class="fp_dashboard_body dashboard_review">
@@ -1150,6 +1126,7 @@
                                     </div>
                                 </div>
 
+                                <!-- Change password -->
                                 @include('frontend.dashboard.change-password')
 
                             </div>
@@ -1249,3 +1226,29 @@
         DASHBOARD END
     ==========================-->
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#upload').on('change', function () {
+                let form = $('#avatar_form')[0];
+                let formData = new FormData(form);
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('profile.avatar.update') }}',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            window.location.reload();
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                })
+            })
+        });
+    </script>
+@endpush

@@ -1,5 +1,5 @@
 <div class="fp_dash_personal_info">
-    <h4>Parsonal Information
+    <h4>Personal Information
         <a class="dash_info_btn">
             <span class="edit">edit</span>
             <span class="cancel">cancel</span>

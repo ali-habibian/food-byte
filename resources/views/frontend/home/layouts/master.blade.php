@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>FoodByte || @yield('title')</title>
     <link rel="icon" type="image/png" href="{{asset('frontend/images/favicon.png')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/all.min.css')}}">
@@ -21,7 +22,7 @@
 
     <link rel="stylesheet" href="{{asset('frontend/css/toastr.min.css')}}">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
-{{--    <script src="{{ asset('vendor/flasher-toastr/toastr.min.js') }}"></script>--}}
+    {{--    <script src="{{ asset('vendor/flasher-toastr/toastr.min.js') }}"></script>--}}
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
@@ -130,12 +131,23 @@
         "timeOut": 5000, // 5 seconds
     };
     @if($errors->any())
-        @foreach($errors->all() as $error)
-            toastr.error('{{$error}}');
-        @endforeach
+    @foreach($errors->all() as $error)
+    toastr.error('{{$error}}');
+    @endforeach
     @endif
 </script>
 
+<!-- Ajax Setup to add csrf token to all ajax request -->
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
+<!-- Page Dynamic JS File -->
+@stack('scripts')
 </body>
 
 </html>
