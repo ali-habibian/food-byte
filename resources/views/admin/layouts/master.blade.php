@@ -17,6 +17,7 @@
 
     <link rel="stylesheet" href="{{asset('frontend/css/toastr.min.css')}}">
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -61,6 +62,9 @@
 
 <!-- JS Libraries -->
 <script src="{{asset('admin/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
+
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+
 <script>
     $.uploadPreview({
         input_field: "#image-upload",   // Default: .image-upload
