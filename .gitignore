@@ -20,6 +20,4 @@ yarn-error.log
 /.vscode
 /resources/views/admin-template/
 /public/frontend/images/
-/public/uploads/media_6658e7da6d3a5.jpg
-/public/uploads/media_6658e8ed28c6f.jpg
-/public/uploads/media_6658e75bb5011.jpg
+/public/uploads/

@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\DataTables\SliderDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SlideCreateRequest;
+use App\Http\Requests\Admin\SliderUpdateRequest;
 use App\Models\Slider;
 use App\Traits\FileUploadTrait;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SliderController extends Controller
@@ -74,17 +76,43 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
-        //
+        $slide = Slider::findOrFail($id);
+        return view('admin.slider.edit', compact('slide'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SliderUpdateRequest $request, string $id): RedirectResponse
     {
-        //
+        $slide = Slider::findOrFail($id);
+        $oldImagePath = $slide->image;
+
+        // Upload new image
+        $newImagePath = $this->uploadImage($request, 'image', $oldImagePath);
+
+        // Update slider
+        $slide->image = !empty($newImagePath) ? $newImagePath : $oldImagePath;
+        $slide->title = $request->title;
+        $slide->sub_title = $request->sub_title;
+        $slide->short_description = $request->short_description;
+        $slide->offer = $request->offer;
+        $slide->button_link = $request->button_link;
+        $slide->status = $request->status;
+        $slide->save();
+
+        Toastr::success(
+            'Slider updated successfully.',
+            'Success',
+            [
+                'progressBar' => true,
+                "positionClass" => "toast-top-center"
+            ]
+        );
+
+        return to_route('admin.slider.index');
     }
 
     /**
