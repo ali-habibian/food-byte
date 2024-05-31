@@ -1,14 +1,22 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html">Food Byte</a>
+            <a href="{{route('home')}}">Food Byte</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">FB</a>
+            <a href="{{route('home')}}">FB</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class=active><a class="nav-link" href="index-0.html"><i class="fas fa-fire"></i> General Dashboard</a>
+
+            <!-- Dashboard -->
+            <li class=active>
+                <a class="nav-link" href="{{route('admin.dashboard')}}"><i class="fas fa-fire"></i> General Dashboard</a>
+            </li>
+
+            <!-- Slider -->
+            <li>
+                <a class="nav-link" href="{{route('admin.slider.index')}}"><i class="far fa-square"></i> <span> Slider</span></a>
             </li>
 
             {{--            <li class="menu-header">Starter</li>--}}
