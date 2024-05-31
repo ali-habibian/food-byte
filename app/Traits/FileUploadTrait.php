@@ -19,7 +19,7 @@ trait FileUploadTrait
     {
         if ($request->hasFile($inputName)) {
             // Delete old image
-            if ($oldPath && File::exists(public_path($oldPath))){
+            if ($oldPath && File::exists(public_path($oldPath))) {
                 File::delete(public_path($oldPath));
             }
 
@@ -30,5 +30,12 @@ trait FileUploadTrait
             return $path . '/' . $imageName;
         }
         return null;
+    }
+
+    function deleteImage(string $path): void
+    {
+        if (File::exists(public_path($path))) {
+            File::delete(public_path($path));
+        }
     }
 }

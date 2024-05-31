@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
     <title>FoodByte | @yield('title')</title>
 
     <!-- General CSS Files -->
@@ -64,7 +65,6 @@
 <script src="{{asset('admin/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js')}}"></script>
 
 
-
 <script>
     $.uploadPreview({
         input_field: "#image-upload",   // Default: .image-upload
@@ -96,6 +96,69 @@
     @endif
 </script>
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Ajax Setup to add csrf token to all ajax request -->
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.delete-item', function (e) {
+            e.preventDefault();
+            let url = $(this).attr('href');
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'DELETE',
+                        url: url,
+                        success: function (response) {
+                            console.log(response.message);
+                            if (response.status === 'success') {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Slide has been deleted.",
+                                    icon: "success"
+                                }).then((result) => {
+                                    $('#slider-table').DataTable().draw();
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "Error!",
+                                    text: "Slide has not been deleted.",
+                                    icon: "error"
+                                });
+                                console.log(response.message);
+                            }
+                        },
+                        error: function (error) {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Slide has not been deleted.",
+                                icon: "error"
+                            });
+                            console.log(error);
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
 <!-- Page Dynamic JS File -->
 @stack('scripts')
 </body>
