@@ -133,7 +133,7 @@
                                     text: "Slide has been deleted.",
                                     icon: "success"
                                 }).then((result) => {
-                                    $('#slider-table').DataTable().draw();
+                                    window.location.reload();
                                 });
                             } else {
                                 Swal.fire({
